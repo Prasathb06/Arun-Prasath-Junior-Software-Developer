@@ -1,6 +1,7 @@
-import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { FiCode, FiServer, FiDatabase, FiBriefcase, FiBook, FiZap, FiGlobe, FiCoffee, FiDownload } from 'react-icons/fi'
+import { FiCode, FiServer, FiBriefcase, FiBook, FiZap, FiGlobe, FiCoffee, FiDownload, FiAward, FiX } from 'react-icons/fi'
 import { FaRocket } from 'react-icons/fa'
 
 const stats = [
@@ -13,10 +14,10 @@ const stats = [
 const experience = [
   {
     type: 'work',
-    title: 'Junior Software Developer',
-    place: 'UFours IT Solution Private Limited',
-    period: 'Mar 2026 – June 2026',
-    desc: 'Gaining hands-on experience in junior software development using MySQL, Express.js, React.js, and Node.js. Assisting in design and development of web applications with clean, maintainable code. Collaborating with the team to implement REST APIs and integrate frontend/backend components.',
+    title: 'Junior Software Developer Intern',
+    place: 'UFours IT Solution Pvt. Ltd.',
+    period: 'Mar 2026 – Jun 2026',
+    desc: 'Successfully completed internship in junior software development using MySQL, Express.js, React.js, and Node.js. Demonstrated dedication and professionalism in designing web applications, implementing REST APIs, and integrating frontend/backend components.',
     icon: FiBriefcase,
   },
   {
@@ -45,12 +46,23 @@ const experience = [
   },
 ]
 
+const certifications = [
+  {
+    title: 'Certificate of Internship Completion',
+    issuer: 'UFours IT Solution Pvt. Ltd.',
+    date: '06 June 2026',
+    image: '/certificates/ufours-certificate.jpg',
+  },
+]
+
 export default function AboutSection() {
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true })
+  const [selectedCert, setSelectedCert] = useState(null)
 
   return (
     <section id="about" className="py-24 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
+
         {/* Header */}
         <motion.div
           ref={ref}
@@ -68,7 +80,8 @@ export default function AboutSection() {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
+        <div className="grid lg:grid-cols-2 gap-12 items-stretch">
+
           {/* Left - Summary */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -129,6 +142,44 @@ export default function AboutSection() {
                 </motion.div>
               ))}
             </div>
+
+            {/* Certifications */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.7 }}
+            >
+              <h3 className="font-display font-bold text-white text-base mb-3 flex items-center gap-2">
+                <FiAward className="text-primary-400" size={18} />
+                Certifications
+              </h3>
+              <div className="space-y-3">
+                {certifications.map((cert, i) => (
+                  <motion.div
+                    key={i}
+                    whileHover={{ scale: 1.02 }}
+                    onClick={() => setSelectedCert(cert)}
+                    className="glass rounded-xl p-4 border border-white/5 hover:border-primary-500/30 transition-all duration-300 cursor-pointer flex items-center gap-4 group"
+                  >
+                    <div className="w-12 h-12 rounded-xl overflow-hidden border border-primary-500/20 flex-shrink-0">
+                      <img
+                        src={cert.image}
+                        alt={cert.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="font-display font-bold text-white text-sm group-hover:text-primary-300 transition-colors truncate">{cert.title}</div>
+                      <div className="text-primary-400 font-body text-xs mt-0.5">{cert.issuer}</div>
+                      <div className="text-gray-600 font-mono text-xs mt-0.5">{cert.date}</div>
+                    </div>
+                    <div className="text-gray-500 text-xs font-body group-hover:text-primary-400 transition-colors flex-shrink-0">
+                      View →
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
           </motion.div>
 
           {/* Right - Experience/Education Timeline */}
@@ -160,7 +211,6 @@ export default function AboutSection() {
                     )}
                   </span>
                 </div>
-
                 <div className="flex items-start gap-3">
                   <div className="w-9 h-9 rounded-xl bg-primary-500/10 border border-primary-500/20 flex items-center justify-center flex-shrink-0 group-hover:bg-primary-500/20 transition-colors">
                     <item.icon className="text-primary-400" size={16} />
@@ -176,13 +226,18 @@ export default function AboutSection() {
             ))}
 
             {/* Download Resume */}
+            <h3 className="font-display font-bold text-white text-base mb-3 flex items-center gap-2">
+              <FiDownload className="text-primary-400" size={18} />
+              Resume
+            </h3>
             <motion.a
-              href="/resume/Arun_Prasath_Junior_Software_Developer.pdf.pdf"
-              download
+              href="/resume/Arun_Prasath_Junior_Software_Developer.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               initial={{ opacity: 0 }}
               animate={inView ? { opacity: 1 } : {}}
               transition={{ delay: 0.9 }}
-              className="flex items-center justify-center gap-3 w-full py-4 rounded-2xl border border-dashed border-primary-500/30 text-primary-400 hover:bg-primary-500/5 hover:border-primary-500/60 transition-all duration-300 font-display font-semibold group"
+              className="flex items-center justify-center gap-3 w-full py-5 rounded-2xl border border-dashed border-primary-500/30 text-primary-400 hover:bg-primary-500/5 hover:border-primary-500/60 transition-all duration-300 font-display font-semibold group"
             >
               <FiDownload size={18} />
               Download Full Resume
@@ -191,6 +246,43 @@ export default function AboutSection() {
           </motion.div>
         </div>
       </div>
+
+      {/* Certificate Modal */}
+      <AnimatePresence>
+        {selectedCert && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedCert(null)}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              onClick={e => e.stopPropagation()}
+              className="relative glass rounded-2xl p-4 border border-white/10 max-w-2xl w-full"
+            >
+              <button
+                onClick={() => setSelectedCert(null)}
+                className="absolute top-4 right-4 w-8 h-8 rounded-xl glass border border-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors z-10"
+              >
+                <FiX size={16} />
+              </button>
+              <div className="mb-3">
+                <h3 className="font-display font-bold text-white text-lg">{selectedCert.title}</h3>
+                <p className="text-primary-400 font-body text-sm">{selectedCert.issuer} • {selectedCert.date}</p>
+              </div>
+              <img
+                src={selectedCert.image}
+                alt={selectedCert.title}
+                className="w-full rounded-xl object-contain max-h-[70vh]"
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }

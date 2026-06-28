@@ -80,7 +80,7 @@ export default function HeroSection() {
                 View Projects
                 <FiArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </a>
-              <a href="/resume/Arun_Prasath_Junior_Software_Developer.pdf.pdf" download className="btn-outline group">
+              <a href="/resume/Arun_Prasath_Junior_Software_Developer.pdf" download className="btn-outline group">
                 <FiDownload size={16} className="group-hover:-translate-y-0.5 transition-transform" />
                 Download CV
               </a>
@@ -155,7 +155,7 @@ export default function HeroSection() {
                   <span className="text-2xl"><FiZap /></span>
                   <div>
                     <div className="text-xs text-gray-500 font-body">Experience</div>
-                    <div className="font-display font-bold text-white text-sm">1+ Years</div>
+                    <div className="font-display font-bold text-white text-sm">Fresher</div>
                   </div>
                 </div>
               </motion.div>
