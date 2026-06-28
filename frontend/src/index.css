@@ -1,0 +1,279 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-dark-900 text-white font-body;
+    background-image:
+      radial-gradient(
+        ellipse at 20% 20%,
+        rgba(59, 130, 246, 0.07) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        ellipse at 80% 80%,
+        rgba(37, 99, 235, 0.04) 0%,
+        transparent 50%
+      );
+  }
+
+  body.light {
+    @apply bg-white text-gray-900;
+    background-image:
+      radial-gradient(
+        ellipse at 20% 20%,
+        rgba(59, 130, 246, 0.08) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        ellipse at 80% 80%,
+        rgba(37, 99, 235, 0.05) 0%,
+        transparent 50%
+      );
+  }
+
+  ::selection {
+    @apply bg-primary-500/30 text-primary-200;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-dark-800;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary-700 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary-500;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/5 backdrop-blur-md border border-white/10;
+  }
+
+  .btn-primary {
+    @apply relative inline-flex items-center gap-2 px-6 py-3 bg-primary-600 text-white font-display font-bold rounded-xl transition-all duration-300 hover:bg-primary-500 hover:shadow-lg hover:shadow-primary-600/40 hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .btn-outline {
+    @apply relative inline-flex items-center gap-2 px-6 py-3 border border-primary-500/50 text-primary-400 font-display font-semibold rounded-xl transition-all duration-300 hover:border-primary-400 hover:bg-primary-500/10 hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .section-title {
+    @apply font-display font-bold text-4xl md:text-5xl;
+  }
+
+  .section-subtitle {
+    @apply font-body text-gray-400 text-lg mt-3;
+  }
+
+  .tag {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-primary-500/10 text-primary-400 border border-primary-500/20;
+  }
+
+  .glow-dot {
+    @apply w-1.5 h-1.5 rounded-full bg-primary-400 animate-pulse;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary-400 via-blue-300 to-sky-300 bg-clip-text text-transparent;
+  }
+}
+/* ===== LIGHT MODE — UNIFIED PURPLE THEME ===== */
+
+
+
+body.light .bg-dark-900,
+body.light .bg-dark-800,
+body.light .bg-dark-700,
+body.light .bg-dark-600,
+body.light .bg-dark-500,
+body.light .bg-dark-400 {
+  background-color: #faf9ff !important;
+}
+
+body.light {
+  background-image:
+    radial-gradient(circle at 15% 10%, rgba(104, 93, 216, 0.06) 0%, transparent 40%),
+    radial-gradient(circle at 85% 30%, rgba(104, 93, 216, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 50% 100%, rgba(104, 93, 216, 0.04) 0%, transparent 50%) !important;
+}
+
+body.light .text-white {
+  color: #1f1b3a !important;
+}
+
+body.light .text-gray-300,
+body.light .text-gray-400 {
+  color: #6b6685 !important;
+}
+
+body.light .text-gray-500,
+body.light .text-gray-600 {
+  color: #a8a3c0 !important;
+}
+
+body.light .text-primary-400 {
+  color: #5447c4 !important;
+}
+
+body.light .text-gradient {
+  background-image: linear-gradient(to right, #685DD8, #8b7de2, #a99bea) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+}
+
+body.light .glass,
+body.light .bg-white\/3,
+body.light .bg-white\/5,
+body.light .bg-white\/6 {
+  background-color: #ffffff !important;
+  border-color: #ebe8fb !important;
+  box-shadow: 0 8px 30px -8px rgba(104, 93, 216, 0.12) !important;
+}
+
+body.light .glass:hover,
+body.light .bg-white\/5:hover {
+  box-shadow: 0 12px 36px -8px rgba(104, 93, 216, 0.18) !important;
+}
+
+body.light .border-white\/5,
+body.light .border-white\/10 {
+  border-color: #ece9fa !important;
+}
+
+body.light .glow-dot {
+  background-color: #685DD8 !important;
+}
+
+body.light nav.bg-dark-900\/80 {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  backdrop-filter: blur(16px) !important;
+  box-shadow: 0 4px 24px -4px rgba(104, 93, 216, 0.1) !important;
+}
+
+body.light .shadow-black\/20 {
+  box-shadow: 0 10px 30px rgba(104, 93, 216, 0.1) !important;
+}
+
+body.light .bg-primary-500\/10 {
+  background-color: #ece7fc !important;
+}
+
+/* Active nav link pill — stronger contrast */
+body.light a .text-primary-400,
+body.light a.text-primary-400 {
+  color: #4538a3 !important;
+  font-weight: 600;
+}
+
+body.light a .border-primary-500\/20,
+body.light a.border-primary-500\/20 {
+  border-color: #d6cdf7 !important;
+}
+
+/* Inactive nav links — readable on white */
+body.light nav .text-gray-400 {
+  color: #6b6685 !important;
+}
+
+body.light .to-dark-800,
+body.light .from-dark-500,
+body.light .to-dark-700,
+body.light .from-dark-800\/80 {
+  --tw-gradient-from: #ece9fb !important;
+  --tw-gradient-to: #d6d0f7 !important;
+}
+
+body.light input,
+body.light textarea {
+  background-color: #ffffff !important;
+  color: #1f1b3a !important;
+  border-color: #e4e0f7 !important;
+  box-shadow: inset 0 1px 2px rgba(104, 93, 216, 0.04) !important;
+}
+
+body.light input:focus,
+body.light textarea:focus {
+  box-shadow: 0 0 0 3px rgba(104, 93, 216, 0.12) !important;
+}
+
+body.light input::placeholder,
+body.light textarea::placeholder {
+  color: #b8b3d1 !important;
+}
+
+body.light .border-primary-500\/50 {
+  border-color: #a99bea !important;
+}
+
+body.light .btn-outline {
+  color: #5447c4 !important;
+}
+
+body.light .btn-outline:hover {
+  background-color: #f2f0fc !important;
+}
+
+body.light .tag {
+  background-color: #f2f0fc !important;
+  border-color: #e0dcf7 !important;
+  color: #5447c4 !important;
+}
+
+body.light footer.border-white\/5 {
+  border-color: #ece9fa !important;
+}
+
+body.light::-webkit-scrollbar-track {
+  background-color: #f5f3fc !important;
+}
+body.light::-webkit-scrollbar-thumb {
+  background-color: #cdc5f4 !important;
+}
+body.light::-webkit-scrollbar-thumb:hover {
+  background-color: #a99bea !important;
+}
+
+body.light ::selection {
+  background-color: rgba(104, 93, 216, 0.15) !important;
+  color: #4538a3 !important;
+}
+
+body.light [style*="rgba(104,93,216,1)"] {
+  opacity: 0.04 !important;
+}
+
+body.light .btn-primary,
+body.light .bg-primary-500.text-white,
+body.light .bg-primary-600.text-white,
+body.light .bg-primary-400.text-white {
+  color: #ffffff !important;
+}
+
+
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-scroll {
+  animation: marquee-scroll 25s linear infinite;
+  will-change: transform;
+}
+
+.animate-scroll:hover {
+  animation-play-state: paused;
+}
