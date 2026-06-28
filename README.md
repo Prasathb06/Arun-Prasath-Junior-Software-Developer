@@ -1,4 +1,4 @@
-# 🚀 Arun Prasath B — Full Stack Developer Portfolio
+# 🚀 Arun Prasath B — Junior Software Developer Portfolio
 
 A modern, high-performance portfolio with dark/light mode, admin panel, and MongoDB backend.
 
