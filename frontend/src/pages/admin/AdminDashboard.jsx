@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import axios from 'axios'
 import toast from 'react-hot-toast'
-import { FiPlus, FiEdit2, FiTrash2, FiLogOut, FiMail, FiEye, FiX, FiSave, FiFolder, FiInbox } from 'react-icons/fi'
+import { FiPlus, FiEdit2, FiTrash2, FiLogOut, FiMail, FiEye, FiX, FiSave, FiFolder, FiInbox, FiUploadCloud, FiImage } from 'react-icons/fi'
 import { useAuth } from '../../context/AuthContext'
 
 const emptyProject = { title: '', description: '', techStack: '', github: '', liveDemo: '', image: '', emoji: '💻' }
@@ -15,11 +15,13 @@ export default function AdminDashboard() {
   const [projects, setProjects] = useState([])
   const [messages, setMessages] = useState([])
   const [loading, setLoading] = useState(true)
-  const [modal, setModal] = useState(null) 
+  const [modal, setModal] = useState(null)
   const [form, setForm] = useState(emptyProject)
   const [editId, setEditId] = useState(null)
   const [selectedMsg, setSelectedMsg] = useState(null)
   const [saving, setSaving] = useState(false)
+  const [uploading, setUploading] = useState(false)
+  const fileInputRef = useRef(null)
 
   useEffect(() => { fetchAll() }, [])
 
@@ -41,6 +43,34 @@ export default function AdminDashboard() {
 
   const openAdd = () => { setForm(emptyProject); setEditId(null); setModal('add') }
   const openEdit = (p) => { setForm({ ...p, techStack: p.techStack?.join(', ') || '' }); setEditId(p._id); setModal('edit') }
+
+  const handleImageSelect = async (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error('Image must be under 5MB')
+      return
+    }
+
+    setUploading(true)
+    try {
+      const formData = new FormData()
+      formData.append('image', file)
+
+      const res = await axios.post('/api/upload', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
+
+      setForm(prev => ({ ...prev, image: res.data.imageUrl }))
+      toast.success('Image uploaded!')
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Upload failed')
+    } finally {
+      setUploading(false)
+      if (fileInputRef.current) fileInputRef.current.value = ''
+    }
+  }
 
   const handleSave = async () => {
     if (!form.title || !form.description) return toast.error('Title and description required')
@@ -79,7 +109,6 @@ export default function AdminDashboard() {
   return (
     <div className="min-h-screen bg-dark-900 pt-8 pb-16 px-4">
       <div className="max-w-5xl mx-auto">
-        {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="font-display font-bold text-3xl text-white">Admin <span className="text-gradient">Dashboard</span></h1>
@@ -90,7 +119,6 @@ export default function AdminDashboard() {
           </button>
         </div>
 
-        {/* Stats */}
         <div className="grid grid-cols-2 gap-4 mb-8">
           <div className="glass rounded-2xl p-5 border border-white/5">
             <div className="text-3xl font-display font-bold text-primary-400">{projects.length}</div>
@@ -102,18 +130,16 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {/* Tabs */}
         <div className="flex gap-2 mb-6">
           {['projects', 'messages'].map(t => (
             <button key={t} onClick={() => setTab(t)}
-              className={`px-5 py-2.5 rounded-xl font-body font-medium text-sm capitalize transition-all ${tab === t ? 'bg-primary-500/10 text-primary-400 border border-primary-500/30' : 'text-gray-500 hover:text-gray-300 glass border border-white/5'}`}
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-body font-medium text-sm capitalize transition-all ${tab === t ? 'bg-primary-500/10 text-primary-400 border border-primary-500/30' : 'text-gray-500 hover:text-gray-300 glass border border-white/5'}`}
             >
-              {t === 'projects' ? <FiFolder/> : <FiInbox/> } {t}
+              {t === 'projects' ? <FiFolder size={14} /> : <FiInbox size={14} />} {t}
             </button>
           ))}
         </div>
 
-        {/* Projects Tab */}
         {tab === 'projects' && (
           <div className="space-y-4">
             <div className="flex justify-end">
@@ -131,7 +157,11 @@ export default function AdminDashboard() {
               projects.map(p => (
                 <motion.div key={p._id} layout className="glass rounded-2xl p-5 border border-white/5 flex items-center justify-between gap-4">
                   <div className="flex items-center gap-4 flex-1 min-w-0">
-                    <div className="text-2xl">{p.emoji || '💻'}</div>
+                    {p.image ? (
+                      <img src={p.image} alt={p.title} className="w-12 h-12 rounded-xl object-cover border border-white/10 flex-shrink-0" />
+                    ) : (
+                      <div className="text-2xl flex-shrink-0">{p.emoji || '💻'}</div>
+                    )}
                     <div className="min-w-0">
                       <div className="font-display font-bold text-white truncate">{p.title}</div>
                       <div className="text-gray-500 text-xs font-body mt-0.5 truncate">{p.description}</div>
@@ -155,7 +185,6 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {/* Messages Tab */}
         {tab === 'messages' && (
           <div className="space-y-3">
             {loading ? (
@@ -189,7 +218,6 @@ export default function AdminDashboard() {
         )}
       </div>
 
-      {/* Modal */}
       <AnimatePresence>
         {modal && modal !== 'view-msg' && (
           <motion.div
@@ -211,31 +239,120 @@ export default function AdminDashboard() {
                   <FiX size={16} />
                 </button>
               </div>
+
               <div className="space-y-4">
-                {[
-                  { label: 'Title *', name: 'title', placeholder: 'My Awesome Project' },
-                  { label: 'Emoji', name: 'emoji', placeholder: '💻' },
-                  { label: 'GitHub URL', name: 'github', placeholder: 'https://github.com/...' },
-                  { label: 'Live Demo URL', name: 'liveDemo', placeholder: 'https://...' },
-                  { label: 'Image URL', name: 'image', placeholder: 'https://...' },
-                  { label: 'Tech Stack (comma-separated)', name: 'techStack', placeholder: 'React, Node.js, MongoDB' },
-                ].map(f => (
-                  <div key={f.name}>
-                    <label className="block text-xs font-mono text-gray-500 mb-1.5 uppercase tracking-wider">{f.label}</label>
-                    <input
-                      type="text"
-                      name={f.name}
-                      value={form[f.name]}
-                      onChange={e => setForm(p => ({ ...p, [e.target.name]: e.target.value }))}
-                      placeholder={f.placeholder}
-                      className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-600 font-body text-sm focus:outline-none focus:border-primary-500/60 transition-all"
-                    />
-                  </div>
-                ))}
+                <div>
+                  <label className="block text-xs font-mono text-gray-500 mb-1.5 uppercase tracking-wider">Title *</label>
+                  <input
+                    type="text"
+                    value={form.title}
+                    onChange={e => setForm(p => ({ ...p, title: e.target.value }))}
+                    placeholder="My Awesome Project"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-600 font-body text-sm focus:outline-none focus:border-primary-500/60 transition-all"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-mono text-gray-500 mb-1.5 uppercase tracking-wider">Project Image</label>
+
+                  {form.image ? (
+                    <div className="relative rounded-xl overflow-hidden border border-white/10 group">
+                      <img src={form.image} alt="Preview" className="w-full h-40 object-cover" />
+                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => fileInputRef.current?.click()}
+                          className="px-3 py-1.5 rounded-lg bg-white/10 backdrop-blur text-white text-xs font-body flex items-center gap-1.5 hover:bg-white/20 transition-all"
+                        >
+                          <FiUploadCloud size={13} /> Replace
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setForm(p => ({ ...p, image: '' }))}
+                          className="px-3 py-1.5 rounded-lg bg-red-500/20 backdrop-blur text-red-300 text-xs font-body flex items-center gap-1.5 hover:bg-red-500/30 transition-all"
+                        >
+                          <FiX size={13} /> Remove
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => fileInputRef.current?.click()}
+                      disabled={uploading}
+                      className="w-full h-32 rounded-xl border border-dashed border-white/15 hover:border-primary-500/40 bg-white/[0.02] hover:bg-primary-500/5 transition-all flex flex-col items-center justify-center gap-2 group disabled:opacity-60"
+                    >
+                      {uploading ? (
+                        <>
+                          <div className="w-6 h-6 rounded-full border-2 border-primary-400 border-t-transparent animate-spin" />
+                          <span className="text-xs text-gray-500 font-body">Uploading...</span>
+                        </>
+                      ) : (
+                        <>
+                          <FiImage size={22} className="text-gray-600 group-hover:text-primary-400 transition-colors" />
+                          <span className="text-xs text-gray-500 font-body group-hover:text-gray-400 transition-colors">Click to upload image</span>
+                          <span className="text-xs text-gray-700 font-mono">JPEG, PNG, WEBP — max 5MB</span>
+                        </>
+                      )}
+                    </button>
+                  )}
+
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp,image/gif"
+                    onChange={handleImageSelect}
+                    className="hidden"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-mono text-gray-500 mb-1.5 uppercase tracking-wider">Emoji (fallback if no image)</label>
+                  <input
+                    type="text"
+                    value={form.emoji}
+                    onChange={e => setForm(p => ({ ...p, emoji: e.target.value }))}
+                    placeholder="💻"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-600 font-body text-sm focus:outline-none focus:border-primary-500/60 transition-all"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-mono text-gray-500 mb-1.5 uppercase tracking-wider">GitHub URL</label>
+                  <input
+                    type="text"
+                    value={form.github}
+                    onChange={e => setForm(p => ({ ...p, github: e.target.value }))}
+                    placeholder="https://github.com/..."
+                    className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-600 font-body text-sm focus:outline-none focus:border-primary-500/60 transition-all"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-mono text-gray-500 mb-1.5 uppercase tracking-wider">Live Demo URL</label>
+                  <input
+                    type="text"
+                    value={form.liveDemo}
+                    onChange={e => setForm(p => ({ ...p, liveDemo: e.target.value }))}
+                    placeholder="https://..."
+                    className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-600 font-body text-sm focus:outline-none focus:border-primary-500/60 transition-all"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-mono text-gray-500 mb-1.5 uppercase tracking-wider">Tech Stack (comma-separated)</label>
+                  <input
+                    type="text"
+                    value={form.techStack}
+                    onChange={e => setForm(p => ({ ...p, techStack: e.target.value }))}
+                    placeholder="React, Node.js, MongoDB"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-600 font-body text-sm focus:outline-none focus:border-primary-500/60 transition-all"
+                  />
+                </div>
+
                 <div>
                   <label className="block text-xs font-mono text-gray-500 mb-1.5 uppercase tracking-wider">Description *</label>
                   <textarea
-                    name="description"
                     value={form.description}
                     onChange={e => setForm(p => ({ ...p, description: e.target.value }))}
                     rows={3}
@@ -244,10 +361,11 @@ export default function AdminDashboard() {
                   />
                 </div>
               </div>
+
               <div className="flex gap-3 mt-6">
                 <button onClick={() => setModal(null)} className="flex-1 py-2.5 rounded-xl border border-white/10 text-gray-400 hover:text-white transition-all font-body text-sm">Cancel</button>
-                <button onClick={handleSave} disabled={saving} className="flex-1 btn-primary justify-center py-2.5 text-sm disabled:opacity-60">
-                  {saving ? <div className="w-4 h-4 rounded-full border-2 border-dark-900 border-t-transparent animate-spin" /> : <><FiSave size={15} /> Save</>}
+                <button onClick={handleSave} disabled={saving || uploading} className="flex-1 btn-primary justify-center py-2.5 text-sm disabled:opacity-60">
+                  {saving ? <div className="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin" /> : <><FiSave size={15} /> Save</>}
                 </button>
               </div>
             </motion.div>
