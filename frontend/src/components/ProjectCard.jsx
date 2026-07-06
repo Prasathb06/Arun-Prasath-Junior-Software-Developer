@@ -12,7 +12,7 @@ export default function ProjectCard({ project, index }) {
       className="group glass rounded-2xl overflow-hidden border border-white/5 hover:border-primary-500/30 transition-all duration-300 flex flex-col"
     >
       {/* Image */}
-      <div className="relative overflow-hidden h-40 bg-gradient-to-br from-dark-500 to-dark-700">
+      <div className="relative overflow-hidden h-36 bg-gradient-to-br from-dark-500 to-dark-700">
         {project.image ? (
           <img
             src={project.image}

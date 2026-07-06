@@ -215,7 +215,7 @@ export default function AboutSection() {
                   <div className="w-9 h-9 rounded-xl bg-primary-500/10 border border-primary-500/20 flex items-center justify-center flex-shrink-0 group-hover:bg-primary-500/20 transition-colors">
                     <item.icon className="text-primary-400" size={16} />
                   </div>
-                  <div className="flex-1 pr-16">
+                  <div className="flex-1 pr-2 sm:pr-16">
                     <h4 className="font-display font-bold text-white text-sm">{item.title}</h4>
                     <p className="text-primary-400 font-body text-xs font-medium mt-0.5">{item.place}</p>
                     <p className="text-gray-600 font-mono text-xs mt-1 mb-2">{item.period}</p>

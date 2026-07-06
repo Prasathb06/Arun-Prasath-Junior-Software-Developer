@@ -88,13 +88,13 @@ export default function ProjectsSection() {
         </motion.div>
 
         {loading ? (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[...Array(4)].map((_, i) => (
               <div key={i} className="glass rounded-2xl h-80 animate-pulse border border-white/5" />
             ))}
           </div>
         ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects.map((project, i) => (
               <ProjectCard key={project._id} project={project} index={i} />
             ))}

@@ -90,9 +90,109 @@
     @apply bg-gradient-to-r from-primary-400 via-blue-300 to-sky-300 bg-clip-text text-transparent;
   }
 }
+
+/* ===== GLOBAL MOBILE RESPONSIVE FIXES ===== */
+@media (max-width: 480px) {
+  /* Prevent any horizontal overflow */
+  body,
+  html {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  /* Section padding reduce */
+  section {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  /* Section titles smaller */
+  .section-title {
+    font-size: 1.875rem !important; /* 30px */
+    line-height: 1.2 !important;
+  }
+
+  .section-subtitle {
+    font-size: 0.95rem !important;
+  }
+
+  /* Glass cards — full width, no overflow */
+  .glass {
+    width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  /* Tags — wrap properly */
+  .tag {
+    font-size: 0.65rem !important;
+    padding: 2px 8px !important;
+  }
+
+  /* Buttons smaller */
+  .btn-primary,
+  .btn-outline {
+    padding: 0.6rem 1rem !important;
+    font-size: 0.8rem !important;
+    gap: 6px !important;
+  }
+
+  /* About section cards */
+  .glass.rounded-2xl {
+    padding: 1rem !important;
+  }
+
+  /* Skills grid — single column on tiny screens */
+  .grid.sm\:grid-cols-2 {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Skills inner grid — single column */
+  .grid.grid-cols-2 {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Experience cards — tag badge fix */
+  .absolute.top-5.right-5 {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    margin-bottom: 8px !important;
+    display: inline-flex !important;
+  }
+
+  /* Contact section grid */
+  .lg\:col-span-2,
+  .lg\:col-span-3 {
+    grid-column: span 1 !important;
+  }
+
+  /* Footer grid */
+  footer .grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  /* Project cards grid */
+  .sm\:grid-cols-2 {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Max width text containers */
+  .max-w-lg,
+  .max-w-xl {
+    max-width: 100% !important;
+  }
+
+  /* Truncate long text in cards */
+  .font-display.font-bold.text-white.truncate {
+    white-space: normal !important;
+    overflow: visible !important;
+  }
+
+  
+}
+
 /* ===== LIGHT MODE — UNIFIED PURPLE THEME ===== */
-
-
 
 body.light .bg-dark-900,
 body.light .bg-dark-800,
@@ -105,9 +205,21 @@ body.light .bg-dark-400 {
 
 body.light {
   background-image:
-    radial-gradient(circle at 15% 10%, rgba(104, 93, 216, 0.06) 0%, transparent 40%),
-    radial-gradient(circle at 85% 30%, rgba(104, 93, 216, 0.05) 0%, transparent 40%),
-    radial-gradient(circle at 50% 100%, rgba(104, 93, 216, 0.04) 0%, transparent 50%) !important;
+    radial-gradient(
+      circle at 15% 10%,
+      rgba(104, 93, 216, 0.06) 0%,
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 85% 30%,
+      rgba(104, 93, 216, 0.05) 0%,
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 50% 100%,
+      rgba(104, 93, 216, 0.04) 0%,
+      transparent 50%
+    ) !important;
 }
 
 body.light .text-white {
@@ -129,7 +241,12 @@ body.light .text-primary-400 {
 }
 
 body.light .text-gradient {
-  background-image: linear-gradient(to right, #685DD8, #8b7de2, #a99bea) !important;
+  background-image: linear-gradient(
+    to right,
+    #685dd8,
+    #8b7de2,
+    #a99bea
+  ) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
 }
@@ -154,7 +271,7 @@ body.light .border-white\/10 {
 }
 
 body.light .glow-dot {
-  background-color: #685DD8 !important;
+  background-color: #685dd8 !important;
 }
 
 body.light nav.bg-dark-900\/80 {
@@ -263,10 +380,13 @@ body.light .bg-primary-400.text-white {
   color: #ffffff !important;
 }
 
-
 @keyframes marquee-scroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .animate-scroll {

@@ -52,7 +52,7 @@ export default function Navbar() {
             : 'py-5 bg-transparent'
         }`}
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between">
+        <div className="max-w-7xl mx-2 px-4 sm:px-6 flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="group flex items-center gap-2">
             <div className="w-9 h-9 rounded-xl bg-primary-500/10 border border-primary-500/30 flex items-center justify-center group-hover:bg-primary-500/20 transition-all duration-300">
@@ -94,12 +94,12 @@ export default function Navbar() {
 
           {/* Actions */}
           <div className="flex items-center gap-2">
-            <button
+            {/* <button
               onClick={toggleTheme}
               className="w-9 h-9 rounded-xl glass flex items-center justify-center text-gray-400 hover:text-primary-400 hover:border-primary-500/30 transition-all duration-300"
             >
               {isDark ? <BsSun size={16} /> : <BsMoon size={16} />}
-            </button>
+            </button> */}
 
             <a
               href="#contact"

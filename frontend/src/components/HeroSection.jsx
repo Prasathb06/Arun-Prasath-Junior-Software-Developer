@@ -29,7 +29,7 @@ export default function HeroSection() {
         />
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-24 pb-16 w-full">
+      <div className="max-w-6xl mx-4 px-4 sm:px-6 pt-20 pb-12 w-full overflow-hidden">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left content */}
           <motion.div
@@ -149,27 +149,26 @@ export default function HeroSection() {
               <motion.div
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute -bottom-4 -left-4 glass rounded-2xl px-4 py-3 border border-white/10"
+                className="absolute -bottom-2 -left-2 lg:-bottom-4 lg:-left-4 glass rounded-xl lg:rounded-2xl px-2 py-1.5 lg:px-4 lg:py-3 border border-white/10 max-w-[100px] lg:max-w-none"
               >
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl"><FiZap /></span>
+                <div className="flex items-center gap-1.5 lg:gap-2">
+                  <span className="text-base lg:text-2xl text-primary-400"><FiZap /></span>
                   <div>
-                    <div className="text-xs text-gray-500 font-body">Experience</div>
-                    <div className="font-display font-bold text-white text-sm">Fresher</div>
+                    <div className="text-[10px] lg:text-xs text-gray-500 font-body">Experience</div>
+                    <div className="font-display font-bold text-white text-[11px] lg:text-sm">Fresher</div>
                   </div>
                 </div>
               </motion.div>
-
               <motion.div
                 animate={{ y: [0, 8, 0] }}
                 transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-                className="absolute -top-4 -right-4 glass rounded-2xl px-4 py-3 border border-white/10"
+                className="absolute -top-2 -right-2 lg:-top-4 lg:-right-4 glass rounded-xl lg:rounded-2xl px-2 py-1.5 lg:px-4 lg:py-3 border border-white/10 max-w-[100px] lg:max-w-none"
               >
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl"><FaRocket /></span>
+                <div className="flex items-center gap-1.5 lg:gap-2">
+                  <span className="text-base lg:text-2xl text-primary-400"><FaRocket /></span>
                   <div>
-                    <div className="text-xs text-gray-500 font-body">Projects</div>
-                    <div className="font-display font-bold text-white text-sm">10+ Built</div>
+                    <div className="text-[10px] lg:text-xs text-gray-500 font-body">Projects</div>
+                    <div className="font-display font-bold text-white text-[11px] lg:text-sm">6+ Built</div>
                   </div>
                 </div>
               </motion.div>
@@ -182,7 +181,7 @@ export default function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          className="absolute bottom-1 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         >
           <span className="text-gray-600 font-body text-xs tracking-widest uppercase">Scroll</span>
           <motion.div
