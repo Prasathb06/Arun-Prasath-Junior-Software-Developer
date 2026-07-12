@@ -4,60 +4,36 @@ import { useInView } from 'react-intersection-observer'
 import axios from 'axios'
 import ProjectCard from './ProjectCard'
 
+const API_URL = import.meta.env.VITE_API_URL || ''
+
 const demoProjects = [
   {
     _id: '1',
-    title: 'Full Stack E-Commerce',
-    description: 'A complete e-commerce platform with product management, cart, orders, and Razorpay payment integration.',
-    techStack: ['React', 'Node.js', 'Express', 'MongoDB', 'Tailwind CSS'],
-    github: 'https://github.com/yourusername/ecommerce',
-    liveDemo: 'https://ecommerce-demo.vercel.app',
-    emoji: '🛒',
-  },
-  {
-    _id: '2',
-    title: 'Portfolio CMS',
-    description: 'A developer portfolio with an admin panel to manage projects and messages, built with JWT authentication.',
-    techStack: ['React', 'Node.js', 'MongoDB', 'JWT', 'Framer Motion'],
-    github: 'https://github.com/yourusername/portfolio',
-    liveDemo: 'https://portfolio.vercel.app',
-    emoji: '🌐',
-  },
-  {
-    _id: '3',
-    title: 'Task Manager App',
-    description: 'Real-time task management application with drag-and-drop, priority labels, and team collaboration features.',
-    techStack: ['React', 'Express', 'MongoDB', 'Socket.io'],
-    github: 'https://github.com/yourusername/taskmanager',
-    liveDemo: 'https://tasks-demo.vercel.app',
-    emoji: '✅',
-  },
-  {
-    _id: '4',
-    title: 'Weather Dashboard',
-    description: 'Beautiful weather app with 7-day forecast, geolocation support, and animated weather icons.',
-    techStack: ['React', 'OpenWeather API', 'Tailwind CSS'],
-    github: 'https://github.com/yourusername/weather',
-    liveDemo: 'https://weather-demo.vercel.app',
-    emoji: '🌤️',
+    title: 'Smart Expense Tracker',
+    description: 'உன்னோட real project description இங்க போடு.',
+    techStack: ['HTML', 'CSS', 'JavaScript and MockAPI'],
+    liveDemo: 'https://smartexpensetracker2026.netlify.app',
+    emoji: '💰',
   },
 ]
 
 export default function ProjectsSection() {
-  const [projects, setProjects] = useState(demoProjects)
-  const [loading, setLoading] = useState(false)
+  const [projects, setProjects] = useState([])
+  const [loading, setLoading] = useState(true)
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true })
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
         setLoading(true)
-        const res = await axios.get('/api/projects')
+        const res = await axios.get(`${API_URL}/api/projects`)
         if (res.data?.projects?.length > 0) {
           setProjects(res.data.projects)
+        } else {
+          setProjects(demoProjects)
         }
       } catch {
-        // Use demo projects if API fails
+        setProjects(demoProjects)
       } finally {
         setLoading(false)
       }
@@ -66,8 +42,7 @@ export default function ProjectsSection() {
   }, [])
 
   return (
-    <section id="projects" className="py-24 relative">
-      {/* BG blur */}
+    <section id="projects" className="py-16 relative">
       <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-primary-500/3 blur-3xl pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -89,7 +64,7 @@ export default function ProjectsSection() {
 
         {loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[...Array(4)].map((_, i) => (
+            {[...Array(3)].map((_, i) => (
               <div key={i} className="glass rounded-2xl h-80 animate-pulse border border-white/5" />
             ))}
           </div>
@@ -100,22 +75,6 @@ export default function ProjectsSection() {
             ))}
           </div>
         )}
-
-        {/* <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.6 }}
-          className="text-center mt-12"
-        >
-          <a
-            href="https://github.com/yourusername"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-outline inline-flex"
-          >
-            View All on GitHub →
-          </a>
-        </motion.div> */}
       </div>
     </section>
   )

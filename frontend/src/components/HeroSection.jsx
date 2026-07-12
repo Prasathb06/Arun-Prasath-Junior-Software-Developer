@@ -20,23 +20,23 @@ export default function HeroSection() {
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-primary-500/5 blur-3xl" />
         <div className="absolute bottom-1/4 right-1/4 w-64 h-64 rounded-full bg-primary-500/5 blur-3xl" />
-        {/* Grid lines */}
         <div className="absolute inset-0 opacity-[0.02]"
           style={{
-            backgroundImage: 'linear-gradient(rgba(59,130,246,1) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,1) 1px, transparent 1px)',
+            backgroundImage: 'linear-gradient(rgba(104,93,216,1) 1px, transparent 1px), linear-gradient(90deg, rgba(104,93,216,1) 1px, transparent 1px)',
             backgroundSize: '60px 60px'
           }}
         />
       </div>
 
-      <div className="max-w-6xl mx-4 px-4 sm:px-6 pt-20 pb-12 w-full overflow-hidden">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="w-full px-8 pt-24 pb-24">
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+
           {/* Left content */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
             animate="show"
-            className="flex flex-col gap-6"
+            className="flex flex-col gap-4 order-first lg:order-first w-full"
           >
             {/* Status badge */}
             <motion.div variants={itemVariants}>
@@ -51,7 +51,7 @@ export default function HeroSection() {
               <p className="text-primary-400 font-mono text-sm tracking-widest uppercase">
                 Hi, I'm
               </p>
-              <h1 className="font-display font-extrabold text-5xl sm:text-6xl lg:text-7xl leading-none">
+              <h1 className="font-display font-extrabold text-4xl sm:text-5xl lg:text-7xl leading-none">
                 <span className="text-white">Arun</span>
                 <br />
                 <span className="text-gradient">Prasath B</span>
@@ -59,33 +59,33 @@ export default function HeroSection() {
             </motion.div>
 
             <motion.div variants={itemVariants}>
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-dark-700 border border-white/5">
+              <div className="inline-flex items-center gap-2 px-3 py-2 sm:px-4 rounded-lg bg-dark-700 border border-white/5">
                 <span className="font-mono text-primary-400 text-sm">{'<'}</span>
-                <span className="font-display font-semibold text-white text-lg">Junior Software Developer</span>
+                <span className="font-display font-semibold text-white text-base sm:text-lg">Junior Software Developer</span>
                 <span className="font-mono text-primary-400 text-sm">{'/>'}</span>
               </div>
             </motion.div>
 
             <motion.p
               variants={itemVariants}
-              className="text-gray-400 font-body text-lg leading-relaxed max-w-lg"
+              className="text-gray-400 font-body text-base sm:text-lg leading-relaxed max-w-lg"
             >
               I craft high-performance web applications with clean code and exceptional user experiences.
               Passionate about React, Node.js, and building scalable full-stack solutions.
             </motion.p>
 
             {/* CTA buttons */}
-            <motion.div variants={itemVariants} className="flex flex-wrap gap-3">
-              <a href="#projects" className="btn-primary group">
+            <motion.div variants={itemVariants} className="flex flex-wrap gap-2 sm:gap-3">
+              <a href="#projects" className="btn-primary group text-sm sm:text-base px-4 sm:px-6 py-2.5 sm:py-3">
                 View Projects
-                <FiArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                <FiArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
               </a>
-              <a href="/resume/Arun_Prasath_Junior_Software_Developer.pdf" download className="btn-outline group">
-                <FiDownload size={16} className="group-hover:-translate-y-0.5 transition-transform" />
+              <a href="/resume/Arun_Prasath_Junior_Software_Developer.pdf" download className="btn-outline group text-sm sm:text-base px-4 sm:px-6 py-2.5 sm:py-3">
+                <FiDownload size={15} className="group-hover:-translate-y-0.5 transition-transform" />
                 Download CV
               </a>
-              <a href="#contact" className="btn-outline group">
-                <FiMail size={16} />
+              <a href="#contact" className="btn-outline group text-sm sm:text-base px-4 sm:px-6 py-2.5 sm:py-3">
+                <FiMail size={15} />
                 Contact Me
               </a>
             </motion.div>
@@ -102,7 +102,7 @@ export default function HeroSection() {
                 <FiGithub size={18} />
               </a>
               <a
-                href="https://www.linkedin.com/in/arun-prasath-b-846b9a254/overlay/contact-info/"
+                href="https://www.linkedin.com/in/arun-prasath-b-846b9a254/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-xl glass flex items-center justify-center text-gray-400 hover:text-primary-400 hover:border-primary-500/30 transition-all duration-300 hover:-translate-y-1"
@@ -117,55 +117,48 @@ export default function HeroSection() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="flex justify-center lg:justify-end"
+            className="flex lg:justify-end order-last lg:order-last mx-auto"
           >
             <div className="relative">
-              {/* Outer ring */}
-              <div className="absolute inset-0 rounded-full border border-primary-500/20 scale-110 animate-pulse" />
-              <div className="absolute inset-0 rounded-full border border-primary-500/10 scale-125" />
+              {/* Outer rings */}
+              <div className="absolute inset-0 rounded-full border border-primary-500/20 scale-105 animate-pulse" />
+              <div className="absolute inset-0 rounded-full border border-primary-500/10 scale-110" />
 
-              {/* Profile image container */}
-              <div className="relative w-72 h-72 sm:w-80 sm:h-80 rounded-full overflow-hidden border-2 border-primary-500/30 shadow-2xl shadow-primary-500/10">
+              {/* Profile image — bigger size */}
+              <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-2 border-primary-500/30 shadow-2xl shadow-primary-500/10">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-dark-800 flex items-center justify-center">
-                  {/* Placeholder avatar */}
-                  {/* <div className="flex flex-col items-center gap-3">
-                    <div className="w-24 h-24 rounded-full bg-primary-500/20 border-2 border-primary-500/40 flex items-center justify-center">
-                      <span className="font-display font-bold text-4xl text-primary-400">AP</span>
-                    </div>
-                    <span className="text-gray-500 text-sm font-body">Replace with your photo</span>
-                    <span className="font-mono text-xs text-gray-600">src/assets/profile.jpg</span>
-                  </div> */}
-                  {/* Uncomment below and remove placeholder div when you have photo: */}
                   <img
-                    src="/src/assets/Arun.jpeg"
+                    src="/assets/Arun.jpeg"
                     alt="Arun Prasath B"
-                    className="w-full h-full object-cover object-top"
+                    className="w-full h-full object-cover"
                     style={{ objectPosition: 'center top' }}
                   />
                 </div>
               </div>
 
-              {/* Floating badges */}
+              {/* Experience badge */}
               <motion.div
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute -bottom-2 -left-2 lg:-bottom-4 lg:-left-4 glass rounded-xl lg:rounded-2xl px-2 py-1.5 lg:px-4 lg:py-3 border border-white/10 max-w-[100px] lg:max-w-none"
+                className="absolute -bottom-2 -left-2 lg:-bottom-4 lg:-left-4 glass rounded-xl lg:rounded-2xl px-2 py-1.5 lg:px-4 lg:py-3 border border-white/10 max-w-[110px] lg:max-w-none"
               >
                 <div className="flex items-center gap-1.5 lg:gap-2">
-                  <span className="text-base lg:text-2xl text-primary-400"><FiZap /></span>
+                  <span className="text-sm lg:text-2xl text-primary-400"><FiZap /></span>
                   <div>
                     <div className="text-[10px] lg:text-xs text-gray-500 font-body">Experience</div>
                     <div className="font-display font-bold text-white text-[11px] lg:text-sm">Fresher</div>
                   </div>
                 </div>
               </motion.div>
+
+              {/* Projects badge */}
               <motion.div
                 animate={{ y: [0, 8, 0] }}
                 transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-                className="absolute -top-2 -right-2 lg:-top-4 lg:-right-4 glass rounded-xl lg:rounded-2xl px-2 py-1.5 lg:px-4 lg:py-3 border border-white/10 max-w-[100px] lg:max-w-none"
+                className="absolute -top-2 -right-2 lg:-top-4 lg:-right-4 glass rounded-xl lg:rounded-2xl px-2 py-1.5 lg:px-4 lg:py-3 border border-white/10 max-w-[110px] lg:max-w-none"
               >
                 <div className="flex items-center gap-1.5 lg:gap-2">
-                  <span className="text-base lg:text-2xl text-primary-400"><FaRocket /></span>
+                  <span className="text-sm lg:text-2xl text-primary-400"><FaRocket /></span>
                   <div>
                     <div className="text-[10px] lg:text-xs text-gray-500 font-body">Projects</div>
                     <div className="font-display font-bold text-white text-[11px] lg:text-sm">6+ Built</div>
@@ -181,7 +174,7 @@ export default function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
-          className="absolute bottom-1 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          className="flex flex-col items-center justify-content-center gap-2 mt-8 lg:mt-12"
         >
           <span className="text-gray-600 font-body text-xs tracking-widest uppercase">Scroll</span>
           <motion.div

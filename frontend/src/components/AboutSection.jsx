@@ -60,7 +60,7 @@ export default function AboutSection() {
   const [selectedCert, setSelectedCert] = useState(null)
 
   return (
-    <section id="about" className="py-24 relative">
+    <section id="about" className="py-16 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
 
         {/* Header */}

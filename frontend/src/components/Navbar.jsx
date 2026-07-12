@@ -46,13 +46,12 @@ export default function Navbar() {
         initial={{ y: -80 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? 'py-3 bg-dark-900/80 backdrop-blur-xl border-b border-white/5 shadow-2xl shadow-black/20'
-            : 'py-5 bg-transparent'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
+          ? 'py-3 bg-dark-900/80 backdrop-blur-xl border-b border-white/5 shadow-2xl shadow-black/20'
+          : 'py-5 bg-transparent'
+          }`}
       >
-        <div className="max-w-7xl mx-2 px-4 sm:px-6 flex items-center justify-between">
+        <div className="w-full px-8 sm:px-6 flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="group flex items-center gap-2">
             <div className="w-9 h-9 rounded-xl bg-primary-500/10 border border-primary-500/30 flex items-center justify-center group-hover:bg-primary-500/20 transition-all duration-300">
@@ -73,11 +72,10 @@ export default function Navbar() {
                   key={link.label}
                   href={isHomePage ? link.href : `/${link.href}`}
                   onClick={() => handleNavClick(link.href)}
-                  className={`relative px-4 py-2 font-body font-medium text-sm rounded-lg transition-all duration-300 ${
-                    isActive
-                      ? 'text-primary-400'
-                      : 'text-gray-400 hover:text-white'
-                  }`}
+                  className={`relative px-4 py-2 font-body font-medium text-sm rounded-lg transition-all duration-300 ${isActive
+                    ? 'text-primary-400'
+                    : 'text-gray-400 hover:text-white'
+                    }`}
                 >
                   {isActive && (
                     <motion.span

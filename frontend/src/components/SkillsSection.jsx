@@ -71,7 +71,7 @@ export default function SkillsSection() {
   })
 
   return (
-    <section id="skills" className="py-24 relative">
+    <section id="skills" className="py-16 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
 
         {/* Section Header */}
