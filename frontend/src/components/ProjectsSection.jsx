@@ -10,13 +10,12 @@ const demoProjects = [
   {
     _id: '1',
     title: 'Smart Expense Tracker',
-    description: 'உன்னோட real project description இங்க போடு.',
-    techStack: ['HTML', 'CSS', 'JavaScript and MockAPI'],
+    description: 'A responsive Smart Expense Tracker built with HTML, CSS & JS. Supports full CRUD via MockAPI REST integration, tracks income vs expenses with live charts.',
+    techStack: ['HTML', 'CSS', 'JavaScript', 'MockAPI'],
     liveDemo: 'https://smartexpensetracker2026.netlify.app',
     emoji: '💰',
   },
 ]
-
 export default function ProjectsSection() {
   const [projects, setProjects] = useState([])
   const [loading, setLoading] = useState(true)
