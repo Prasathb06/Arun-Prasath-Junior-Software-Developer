@@ -34,9 +34,10 @@ app.use('/api/contact', contactLimiter)
 
 app.use(cors({
   origin: [
-    process.env.FRONTEND_URL || 'http://localhost:5173',
     'http://localhost:5173',
     'http://localhost:5174',
+    'https://arun-prasath-junior-software-developer-1.onrender.com',
+    process.env.FRONTEND_URL || '',
   ],
   credentials: true,
 }))
