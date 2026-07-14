@@ -8,14 +8,10 @@ router.post('/', protect, upload.single('image'), (req, res, next) => {
         if (!req.file) {
             return res.status(400).json({ success: false, message: 'No file uploaded' })
         }
-
-        const imageUrl = `${req.protocol}://${req.get('host')}/uploads/projects/${req.file.filename}`
-
         res.status(201).json({
             success: true,
             message: 'Image uploaded successfully',
-            imageUrl,
-            filename: req.file.filename,
+            imageUrl: req.file.path,
         })
     } catch (err) {
         next(err)
